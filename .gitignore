@@ -1,4 +1,6 @@
-public/media
+public/media/*.png
+public/media/*.jpeg
+public/media/*.jpg
 public/temp
 .editorconfig
 .DS_Store
