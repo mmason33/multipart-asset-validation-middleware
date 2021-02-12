@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const router = express.Router();
 const upload = require('../middleware/multer')('temp');
 const assetValidation = require('../middleware/assetValidation');
@@ -17,6 +18,25 @@ router.post('/media', upload.any(), assetValidation('media'), async (req, res) =
 			footer_image: footer_image_path || 'Asset wasn/\'t uploaded',
 		}
 	});
+});
+
+router.get('/demo-images/:image_name', (req, res) => {
+	let file;
+
+	try {
+		file = fs.readFileSync(`./demo-images/${req.params.image_name}`);
+	} catch (err) {
+		res.status(400);
+		res.setHeader('Content-Type', 'application/json');
+		res.json({
+			error: 'File does not exist.'
+		});
+
+		return false;
+	}
+
+	res.setHeader('Content-Disposition', `attachment; filename=${req.params.image_name}`);
+	res.send(file);
 });
 
 module.exports = router;
