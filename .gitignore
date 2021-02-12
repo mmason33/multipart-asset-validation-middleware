@@ -1,0 +1,5 @@
+public/media
+public/temp
+.editorconfig
+.DS_Store
+node_modules
